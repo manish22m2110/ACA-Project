@@ -26,10 +26,10 @@ With the increasing demand for database applications that are compute and memory
 #### Trace Generator
 
 0. Login to Physical Machine
-    ID password obtain from the administrator
+    <br />ID password obtain from the administrator
 1. Start Ubuntu VM from Desktop
-    Use VirtualBox in local machine
-    ID password obtain from the administrator
+    <br />Use VirtualBox in local machine
+    <br />ID password obtain from the administrator
 2. Build Load Generator inside Ubuntu VM
     Building hammerdb docker image and starting up the application --
     1. xhost +local:* (To authorize display by host from the container)
