@@ -47,7 +47,8 @@ With the increasing demand for database applications that are compute and memory
     <br />Port number exposed for communication from Ubtuntu VM (6359) to QSim VM (6379)
 6. Start the enabledisable program present on desktop inside QSim VM, this starts the process of trace generation
 7. Start the load generator from Ubuntu VM
-    1. docker run  --network host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix/ -it hdbimg (starting the container)
+    1. docker run  --network host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix/ -it hdbimg 
+       <br />(starting the container)
        <br />Network of container set same as host and display set as host display for UI
     2. cd HammerDB-4.9 and start hammerdb by ./hammerdb
     3. Set up the port number exposed to qsim VM from ubuntu VM in hammerdb (to connect to hammerdb and Postgres Server)
