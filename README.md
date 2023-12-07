@@ -22,31 +22,39 @@ With the increasing demand for database applications that are compute and memory
 
 ---
 
-### Steps to run the experiments
 
-Building hammerdb docker image and starting up the application --
+#### Trace Generator
 
- 1. xhost +local:* (To authorize display by host from the container)
- 2. docker build -t hdbimg .  (building image)
- 3. docker run  --network host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix/ -it hdbimg (starting the container)
- 4. cd HammerDB-4.9 and start hammerdb by ./hammerdb
+0. Login to Physical Machine
+    ID password obtain from the administrator
+1. Start Ubuntu VM from Desktop
+    Use VirtualBox in local machine
+    ID password obtain from the administrator
+2. Build Load Generator inside Ubuntu VM
+    Building hammerdb docker image and starting up the application --
+    1. xhost +local:* (To authorize display by host from the container)
+    2. docker build -t hdbimg .  (building image)
+3. Start QSim VM
+    Instructions present on the desktop of Ubuntu VM
+    ID password obtain from the administrator
+4. Build Postgresql inside QSim VM
+    1. Download postgres from source in qsim VM and run make to compile and build it.
+    2. Set the path variables required
+    3. Change port number in hpg_hba.conf file as only one port is exposed in the VM
+    4. Run the configure command
+    5. Init the database for the first time
+    6. Run the database using pg_ctl command
+    Port number exposed for communication from Ubtuntu VM (6359) to QSim VM (6379)
+6. Start the enabledisable program present on desktop inside QSim VM, this starts the process of trace generation
+7. Start the load generator from Ubuntu VM
+    1. docker run  --network host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix/ -it hdbimg (starting the container)
+        Network of container set same as host and display set as host display for UI
+    2. cd HammerDB-4.9 and start hammerdb by ./hammerdb
+    3. Set up the port number exposed to qsim VM from ubuntu VM in hammerdb (to connect to hammerdb and Postgres Server)
+    4. Start generating load
+9. Power Off the QSim VM to find the intermediate trace tarce.log at path mentioned in the QSim VM setup file
+10. Convert this trace to champsim.gz extension to be run by champsim using the Python scripts owned by the administrator
 
-
-Trace generator: 
-
-1. Download postgres from source in qsim VM and run make to compile and build it.
-    Set the path variables required
-    Change port number in hpg_hba.conf file as only one port is exposed in the VM
-    Run the configure command
-    Init the database for the first time
-    Run the database using pg_ctl command
-2. Run the hammerdb container inside ubuntu 
-    With network host settings 
-    With display setting to use UI of hammerdb in container
-3. Set up the port number exposed to qsim VM from ubuntu VM in hammerdb (to connect to hammerdb and Postgres Server)
-3. Start the postgres server on the qsim VM and enable tracing and parallely run load generator hammerDB on postgres
-4. This will generate an intermediate log named "trace.log"
-5. Convert this trace to champsim.gz extension to be run by champsim
 
 Vtune Profiling:
 1. Set up the VTune profiling tool
