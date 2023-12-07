@@ -32,8 +32,7 @@ With the increasing demand for database applications that are compute and memory
     <br />ID password obtain from the administrator
 2. Build Load Generator inside Ubuntu VM
     <br />Building hammerdb docker image and starting up the application --
-    1. xhost +local:* (To authorize display by host from the container)
-    2. docker build -t hdbimg .  (building image)
+    1. docker build -t hdbimg .  (building image)
 3. Start QSim VM
     <br />Instructions present on the desktop of Ubuntu VM
     <br />ID password present in the set up instructions doc present on the desktop of Ubuntu VM
@@ -47,12 +46,13 @@ With the increasing demand for database applications that are compute and memory
     <br />Port number exposed for communication from Ubtuntu VM (6359) to QSim VM (6379)
 6. Start the enabledisable program present on desktop inside QSim VM, this starts the process of trace generation
 7. Start the load generator from Ubuntu VM
-    1. docker run  --network host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix/ -it hdbimg 
+    1. xhost +local:* (To authorize display by host from the container)
+    2. docker run  --network host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix/ -it hdbimg 
        <br />(starting the container)
        <br />Network of container set same as host and display set as host display for UI
-    2. cd HammerDB-4.9 and start hammerdb by ./hammerdb
-    3. Set up the port number exposed to qsim VM from ubuntu VM in hammerdb (to connect to hammerdb and Postgres Server)
-    4. Start generating load
+    3. cd HammerDB-4.9 and start hammerdb by ./hammerdb
+    4. Set up the port number exposed to qsim VM from ubuntu VM in hammerdb (to connect to hammerdb and Postgres Server)
+    5. Start generating load
 9. Power Off the QSim VM to find the intermediate trace tarce.log at path mentioned in the QSim VM setup file
 10. Convert this trace to champsim.gz extension to be run by champsim using the Python scripts owned by the administrator
 
